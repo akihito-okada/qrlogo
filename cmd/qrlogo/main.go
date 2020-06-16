@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/divan/qrlogo"
+	"github.com/akihito-okada/qrlogo"
 	"image"
 	_ "image/png"
 	"os"
