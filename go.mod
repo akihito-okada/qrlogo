@@ -1,4 +1,4 @@
-module github.com/divan/qrlogo
+module github.com/akihito-okada/qrlogo
 
 go 1.14
 
