@@ -51,8 +51,6 @@ func (e Encoder) Encode(str string, logo image.Image, size int) (*bytes.Buffer, 
 // overlayLogo blends logo to the center of the QR code,
 // changing all colors to black.
 func (e Encoder) overlayLogo(dst, src image.Image) {
-	grey := uint32(^uint16(0)) * uint32(e.GreyThreshold) / 100
-	alphaOffset := uint32(e.AlphaThreshold)
 	offsetX := dst.Bounds().Max.X - src.Bounds().Max.X
 	offsetY := dst.Bounds().Max.Y - src.Bounds().Max.Y
 	for x := 0; x < src.Bounds().Max.X; x++ {
