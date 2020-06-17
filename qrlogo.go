@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"image"
 	"image/draw"
-	"image/color"
+//	"image/color"
 	"image/png"
 
 	qr "github.com/skip2/go-qrcode"
@@ -41,8 +41,8 @@ func (e Encoder) Encode(str string, logo image.Image, size int) (*bytes.Buffer, 
 	img := code.Image(size)
 	//e.overlayLogo(img, logo)
 
-	offsetX := dst.Bounds().Max.X - src.Bounds().Max.X
-	offsetY := dst.Bounds().Max.Y - src.Bounds().Max.Y
+	offsetX := img.Bounds().Max.X - logo.Bounds().Max.X
+	offsetY := img.Bounds().Max.Y - logo.Bounds().Max.Y
 
     offset := image.Pt(offsetX, offsetY)
     b := img.Bounds()
