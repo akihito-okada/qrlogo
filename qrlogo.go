@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"image"
 	"image/draw"
-//	"image/color"
 	"image/png"
 
 	qr "github.com/skip2/go-qrcode"
@@ -38,41 +37,22 @@ func (e Encoder) Encode(str string, logo image.Image, size int) (*bytes.Buffer, 
 		return nil, err
 	}
 
-	img := code.Image(size)
-	//e.overlayLogo(img, logo)
+	qrCode := code.Image(size)
 
-	offsetX := img.Bounds().Max.X - logo.Bounds().Max.X
-	offsetY := img.Bounds().Max.Y - logo.Bounds().Max.Y
+	offsetX := qrCode.Bounds().Max.X - logo.Bounds().Max.X
+	offsetY := qrCode.Bounds().Max.Y - logo.Bounds().Max.Y
 
     offset := image.Pt(offsetX, offsetY)
-    b := img.Bounds()
+    qrCodeBounds := qrCode.Bounds()
 
-	image3 := image.NewRGBA(b)
-    draw.Draw(image3, b, img, image.ZP, draw.Src)
-    draw.Draw(image3, logo.Bounds().Add(offset), logo, image.ZP, draw.Over) 
+	output := image.NewRGBA(qrCodeBounds)
+    draw.Draw(output, qrCodeBounds, qrCode, image.ZP, draw.Src)
+    draw.Draw(output, logo.Bounds().Add(offset), logo, image.ZP, draw.Over) 
 
-	err = png.Encode(&buf, image3)
+	err = png.Encode(&buf, output)
 	if err != nil {
 		return nil, err
 	}
 
 	return &buf, nil
 }
-
-// overlayLogo blends logo to the center of the QR code,
-// changing all colors to black.
-//func (e Encoder) overlayLogo(dst, src image.Image) {
-//	offsetX := dst.Bounds().Max.X - src.Bounds().Max.X
-//	offsetY := dst.Bounds().Max.Y - src.Bounds().Max.Y
-//	for x := 0; x < src.Bounds().Max.X; x++ {
-//		for y := 0; y < src.Bounds().Max.Y; y++ {
-//			//get pixel from imageData
-//			pixel := src.At(x,y)
-//			//convert pixel to RGBA
-//			RGBApixel := color.RGBAModel.Convert(pixel).(color.RGBA)
-//			//set new pixel in new image
-//			dst.(*image.Paletted).Set(offsetX,offsetY,RGBApixel)
-//
-//		}
-//	}
-//}
