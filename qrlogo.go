@@ -63,7 +63,7 @@ func (e Encoder) overlayLogo(dst, src image.Image) {
 					RGBApixel = color.RGBAModel.Convert(pixel).(color.RGBA)
 					RGBApixel.A = 255
 			//set new pixel in new image
-			dst.(*image.Paletted).Set(x,y,RGBApixel)
+			dst.(*image.Paletted).Set(offsetX,offsetY,RGBApixel)
 
 		}
 	}
