@@ -58,11 +58,13 @@ func (e Encoder) overlayLogo(dst, src image.Image) {
 	for x := 0; x < src.Bounds().Max.X; x++ {
 		for y := 0; y < src.Bounds().Max.Y; y++ {
 			if r, g, b, alpha := src.At(x, y).RGBA(); alpha > alphaOffset {
-				col := color.Black
-				if r > grey && g > grey && b > grey {
-					col = color.White
-				}
-				dst.(*image.Paletted).Set(x+offsetX, y+offsetY, col)
+				//col := color.Black
+				//if r > grey && g > grey && b > grey {
+				//	col = color.White
+				//}
+				c := color.Gray16Model.Convert(src.At(x, y))
+				gray, _ := c.(color.Gray16)
+				dst.(*image.Paletted).Set(x+offset, y+offset, gray)
 			}
 		}
 	}
