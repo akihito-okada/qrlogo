@@ -55,9 +55,22 @@ func (e Encoder) overlayLogo(dst, src image.Image) {
 	offsetY := dst.Bounds().Max.Y - src.Bounds().Max.Y
 	for x := 0; x < src.Bounds().Max.X; x++ {
 		for y := 0; y < src.Bounds().Max.Y; y++ {
-			c := color.Gray16Model.Convert(src.At(x, y))
-			gray, _ := c.(color.Gray16)
-			dst.(*image.Paletted).Set(x+offsetX, y+offsetY, gray)
+			//get pixel from imageData
+			pixel := src.At(x,y)
+
+			//convert pixel to RGBA
+			var RGBApixel color.RGBA
+			switch src.ColorModel() {
+				case color.NYCbCrAModel:
+					RGBApixel = ConvertNYCbCrA(pixel.(color.NYCbCrA))
+				case color.NRGBAModel:
+					RGBApixel = ConvertNRGBA(pixel.(color.NRGBA))
+				default:
+					RGBApixel = color.RGBAModel.Convert(pixel).(color.RGBA)
+					RGBApixel.A = 255
+			}
+			//set new pixel in new image
+			dst.(*image.Paletted).Set(x+offsetX, y+offsetY, RGBApixel)
 		}
 	}
 }
