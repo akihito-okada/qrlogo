@@ -57,11 +57,8 @@ func (e Encoder) overlayLogo(dst, src image.Image) {
 		for y := 0; y < src.Bounds().Max.Y; y++ {
 			//get pixel from imageData
 			pixel := src.At(x,y)
-
 			//convert pixel to RGBA
-			var RGBApixel color.RGBA
-					RGBApixel = color.RGBAModel.Convert(pixel).(color.RGBA)
-					RGBApixel.A = 255
+			RGBApixel = color.RGBAModel.Convert(pixel).(color.RGBA)
 			//set new pixel in new image
 			dst.(*image.Paletted).Set(offsetX,offsetY,RGBApixel)
 
