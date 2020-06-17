@@ -64,7 +64,7 @@ func (e Encoder) overlayLogo(dst, src image.Image) {
 				//}
 				c := color.Gray16Model.Convert(src.At(x, y))
 				gray, _ := c.(color.Gray16)
-				dst.(*image.Paletted).Set(x+offset, y+offset, gray)
+				dst.(*image.Paletted).Set(x+offsetX, y+offsetY, gray)
 			}
 		}
 	}
