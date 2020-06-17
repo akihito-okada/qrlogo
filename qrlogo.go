@@ -60,17 +60,11 @@ func (e Encoder) overlayLogo(dst, src image.Image) {
 
 			//convert pixel to RGBA
 			var RGBApixel color.RGBA
-			switch src.ColorModel() {
-				case color.NYCbCrAModel:
-					RGBApixel = ConvertNYCbCrA(pixel.(color.NYCbCrA))
-				case color.NRGBAModel:
-					RGBApixel = ConvertNRGBA(pixel.(color.NRGBA))
-				default:
 					RGBApixel = color.RGBAModel.Convert(pixel).(color.RGBA)
 					RGBApixel.A = 255
-			}
 			//set new pixel in new image
-			dst.(*image.Paletted).Set(x+offsetX, y+offsetY, RGBApixel)
+			dst.(*image.Paletted).Set(x,y,RGBApixel)
+
 		}
 	}
 }
