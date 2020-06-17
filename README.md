@@ -12,17 +12,17 @@ Thanks to redundancy in the QE codes nature, code remains readable even if part 
 ## Install
 To install command line tool:
 
-```go get github.com/divan/qrlogo/cmd/qrlogo```
+```go get github.com/akihito-okada/qrlogo/cmd/qrlogo```
 
 Or only lib (basically, the same, but without installing binary):
 
-```go get github.com/divan/qrlogo```
+```go get github.com/akihito-okada/qrlogo```
 
 ## Usage
 ### Command line tool
 For command line tool, it's enough to specify input image (i.e. logo) and text or URL to be encoded:
 
-```qrlogo -i logo.png http://githib.com/divan/qrlogo```
+```qrlogo -i logo.png http://githib.com/akihito-okada/qrlogo```
 
 Output will be written to qr.png file in PNG format.
 
